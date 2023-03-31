@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">GBMaterial</string>
     <string name="nasa">NASA</string>
+    <string name="change_date">Change Date</string>
 </resources>

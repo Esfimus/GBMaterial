@@ -1,5 +1,6 @@
 package com.example.gbmaterial.ui
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import coil.ImageLoader
 import coil.request.ImageRequest
 import com.example.gbmaterial.databinding.FragmentMainBinding
 import com.google.android.material.snackbar.Snackbar
+import java.util.*
 
 class MainFragment : Fragment() {
 
@@ -45,6 +47,7 @@ class MainFragment : Fragment() {
         model.responseCodeLive.observe(viewLifecycleOwner) {
             view?.snackMessage(it)
         }
+        pictureByDate()
     }
 
     private fun ImageView.loadPicture(url: String) {
@@ -60,6 +63,23 @@ class MainFragment : Fragment() {
 
     private fun View.snackMessage(text: String, length: Int = Snackbar.LENGTH_SHORT) {
         Snackbar.make(this, text, length).show()
+    }
+
+    private fun pictureByDate() {
+        ui.changeDateFab.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH)
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+            val datePickerDialog = DatePickerDialog(
+                requireContext(),
+                { _, yearSet, monthSet, daySet ->
+                    val newDate = "${"%04d".format(yearSet)}-${"%02d".format(monthSet + 1)}-${"%02d".format(daySet)}"
+                    model.loadPicture(newDate)
+                }, year, month, day
+            )
+            datePickerDialog.show()
+        }
     }
 
     override fun onDestroyView() {
