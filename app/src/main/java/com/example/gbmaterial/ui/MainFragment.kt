@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import coil.ImageLoader
+import coil.request.ImageRequest
 import com.example.gbmaterial.databinding.FragmentMainBinding
 
 class MainFragment : Fragment() {
@@ -33,8 +36,22 @@ class MainFragment : Fragment() {
     private fun initView() {
         model.loadPicture(model.currentDate())
         model.pictureLive.observe(viewLifecycleOwner) {
-            ui.testText.text = it.explanation
+            with (ui) {
+                imageView.loadPicture(it.url)
+                testText.text = it.title
+            }
         }
+    }
+
+    private fun ImageView.loadPicture(url: String) {
+        val imageLoader = ImageLoader.Builder(this.context).build()
+        val request = ImageRequest.Builder(this.context)
+            .crossfade(true)
+            .crossfade(500)
+            .data(url)
+            .target(this)
+            .build()
+        imageLoader.enqueue(request)
     }
 
     override fun onDestroyView() {
