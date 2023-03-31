@@ -50,4 +50,9 @@ class SharedViewModel : ViewModel() {
     fun currentDate(): String {
         return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
     }
+
+    fun filterInputText(input: String) = input
+            .trim()
+            .replace("""\s+""".toRegex(), " ")
+            .replace(" ", "%20")
 }

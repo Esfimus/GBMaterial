@@ -1,6 +1,8 @@
 package com.example.gbmaterial.ui
 
 import android.app.DatePickerDialog
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -40,6 +42,7 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setBottomSheetBehavior(view.findViewById(R.id.bottom_sheet_container))
         initView()
+        searchDefinition()
     }
 
     private fun initView() {
@@ -49,7 +52,7 @@ class MainFragment : Fragment() {
             view?.findViewById<TextView>(R.id.bottom_sheet_text)?.text = it.explanation
             with (ui) {
                 imageView.loadPicture(it.url)
-                testText.text = it.title
+                pictureTitle.text = it.title
             }
         }
         model.responseCodeLive.observe(viewLifecycleOwner) {
@@ -72,6 +75,17 @@ class MainFragment : Fragment() {
     private fun setBottomSheetBehavior(bottomSheet: LinearLayout) {
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+    }
+
+    private fun searchDefinition() {
+        ui.inputLayout.setEndIconOnClickListener {
+            if (!"""\s*""".toRegex().matches(ui.textInput.text.toString())) {
+                startActivity(Intent(Intent.ACTION_VIEW).apply {
+                    val filteredInput = model.filterInputText(ui.textInput.text.toString())
+                    data = Uri.parse("https://www.merriam-webster.com/dictionary/$filteredInput")
+                })
+            }
+        }
     }
 
     private fun View.snackMessage(text: String, length: Int = Snackbar.LENGTH_SHORT) {
