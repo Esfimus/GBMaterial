@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import coil.ImageLoader
 import coil.request.ImageRequest
 import com.example.gbmaterial.databinding.FragmentMainBinding
+import com.google.android.material.snackbar.Snackbar
 
 class MainFragment : Fragment() {
 
@@ -41,6 +42,9 @@ class MainFragment : Fragment() {
                 testText.text = it.title
             }
         }
+        model.responseCodeLive.observe(viewLifecycleOwner) {
+            view?.snackMessage(it)
+        }
     }
 
     private fun ImageView.loadPicture(url: String) {
@@ -52,6 +56,10 @@ class MainFragment : Fragment() {
             .target(this)
             .build()
         imageLoader.enqueue(request)
+    }
+
+    private fun View.snackMessage(text: String, length: Int = Snackbar.LENGTH_SHORT) {
+        Snackbar.make(this, text, length).show()
     }
 
     override fun onDestroyView() {
