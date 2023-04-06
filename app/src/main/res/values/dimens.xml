@@ -5,4 +5,5 @@
     <dimen name="peek_size">32dp</dimen>
     <dimen name="line_thickness">1dp</dimen>
     <dimen name="bottom_sheet_height">200dp</dimen>
+    <dimen name="min_height">48dp</dimen>
 </resources>
