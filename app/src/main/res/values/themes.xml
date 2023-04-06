@@ -27,4 +27,39 @@
         <item name="colorSurfaceInverse">@color/md_theme_light_inverseSurface</item>
         <item name="colorPrimaryInverse">@color/md_theme_light_inversePrimary</item>
     </style>
+
+    <style name="CustomBottomSheet" parent="Widget.Material3.BottomSheet" />
+
+    <style name="bottom_sheet_line">
+        <item name="android:layout_width">@dimen/peek_size</item>
+        <item name="android:layout_height">@dimen/line_thickness</item>
+        <item name="android:layout_margin">@dimen/small_margin</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/rajdhani_medium</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="fontFamily">@font/rajdhani_medium</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="text_input">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="fontFamily">@font/rajdhani_medium</item>
+        <item name="android:minHeight">@dimen/min_height</item>
+        <item name="android:inputType">text</item>
+        <item name="android:imeOptions">actionDone</item>
+    </style>
+
 </resources>

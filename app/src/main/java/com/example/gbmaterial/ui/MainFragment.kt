@@ -1,6 +1,5 @@
 package com.example.gbmaterial.ui
 
-import android.app.DatePickerDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -17,8 +16,11 @@ import coil.request.ImageRequest
 import com.example.gbmaterial.R
 import com.example.gbmaterial.databinding.FragmentMainBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
-import java.util.*
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 class MainFragment : Fragment() {
 
@@ -94,18 +96,22 @@ class MainFragment : Fragment() {
 
     private fun pictureByDate() {
         ui.changeDateFab.setOnClickListener {
-            val calendar = Calendar.getInstance()
-            val year = calendar.get(Calendar.YEAR)
-            val month = calendar.get(Calendar.MONTH)
-            val day = calendar.get(Calendar.DAY_OF_MONTH)
-            val datePickerDialog = DatePickerDialog(
-                requireContext(),
-                { _, yearSet, monthSet, daySet ->
-                    val newDate = "${"%04d".format(yearSet)}-${"%02d".format(monthSet + 1)}-${"%02d".format(daySet)}"
-                    model.loadPicture(newDate)
-                }, year, month, day
-            )
-            datePickerDialog.show()
+            val datePicker = MaterialDatePicker
+                .Builder
+                .datePicker()
+                .setTitleText(getString(R.string.select_date))
+                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                .build()
+            datePicker.show(parentFragmentManager, "tag")
+            datePicker.addOnPositiveButtonClickListener {
+                model.loadPicture(
+                    Instant
+                        .ofEpochMilli(it)
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDate()
+                        .format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                )
+            }
         }
     }
 
