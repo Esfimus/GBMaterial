@@ -48,8 +48,8 @@ class NasaApodFragment : Fragment() {
     }
 
     private fun initView() {
-        model.loadPicture(model.currentDate())
-        model.pictureLive.observe(viewLifecycleOwner) {
+        model.loadNasaApod(model.currentDate())
+        model.apodLive.observe(viewLifecycleOwner) {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             view?.findViewById<TextView>(R.id.bottom_sheet_text)?.text = it.explanation
             with (ui) {
@@ -104,7 +104,7 @@ class NasaApodFragment : Fragment() {
                 .build()
             datePicker.show(parentFragmentManager, "tag")
             datePicker.addOnPositiveButtonClickListener {
-                model.loadPicture(
+                model.loadNasaApod(
                     Instant
                         .ofEpochMilli(it)
                         .atZone(ZoneId.systemDefault())
