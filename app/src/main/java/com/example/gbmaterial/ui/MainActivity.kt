@@ -3,6 +3,7 @@ package com.example.gbmaterial.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
+import com.example.gbmaterial.R
 import com.example.gbmaterial.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -15,6 +16,7 @@ class MainActivity : AppCompatActivity() {
         NasaEpicFragment.newInstance()
     )
     private val fragmentsNames = listOf("APOD", "EPIC")
+    private val tabsIcons = listOf(R.drawable.ic_apod, R.drawable.ic_epic)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         val tabLayout: TabLayout = ui.tabLayout
         TabLayoutMediator(tabLayout, pager) { tab, position ->
             tab.text = fragmentsNames[position]
+            tab.setIcon(tabsIcons[position])
         }.attach()
     }
 }
