@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import coil.ImageLoader
 import coil.request.ImageRequest
 import com.example.gbmaterial.R
-import com.example.gbmaterial.databinding.FragmentMainBinding
+import com.example.gbmaterial.databinding.FragmentNasaApodBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
@@ -22,21 +22,21 @@ import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
-class MainFragment : Fragment() {
+class NasaApodFragment : Fragment() {
 
-    private var _ui: FragmentMainBinding? = null
+    private var _ui: FragmentNasaApodBinding? = null
     private val ui get() = _ui!!
     private val model: SharedViewModel by lazy {
         ViewModelProvider(requireActivity())[SharedViewModel::class.java] }
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
 
     companion object {
-        fun newInstance() = MainFragment()
+        fun newInstance() = NasaApodFragment()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View {
-        _ui = FragmentMainBinding.inflate(inflater, container, false)
+        _ui = FragmentNasaApodBinding.inflate(inflater, container, false)
         return ui.root
     }
 
