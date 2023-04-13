@@ -1,9 +1,9 @@
-package com.example.gbmaterial.data.api
+package com.example.gbmaterial.data.api.apod
 
 
 import com.google.gson.annotations.SerializedName
 
-data class PictureLoaded(
+data class Apod(
     @SerializedName("copyright")
     val copyright: String,
     @SerializedName("date")
