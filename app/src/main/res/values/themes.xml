@@ -38,7 +38,7 @@
     </style>
 
     <style name="titleBlock">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">@dimen/normal_margin</item>
         <item name="android:textStyle">bold</item>
@@ -47,7 +47,7 @@
     </style>
 
     <style name="textBlock">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">@dimen/normal_margin</item>
         <item name="android:layout_marginEnd">@dimen/normal_margin</item>

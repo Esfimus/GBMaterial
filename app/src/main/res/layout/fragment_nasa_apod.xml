@@ -56,26 +56,35 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
+        <androidx.constraintlayout.motion.widget.MotionLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:layoutDescription="@xml/fragment_nasa_apod_scene">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/apodTitle"
-                style="@style/titleBlock"/>
+                style="@style/titleBlock"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/apodCopyright"/>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/apodCopyright"
-                style="@style/textBlock"/>
+                style="@style/textBlock"
+                app:layout_constraintTop_toBottomOf="@id/apodTitle"
+                app:layout_constraintBottom_toTopOf="@id/apodDate"/>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/apodDate"
-                style="@style/textBlock"/>
+                style="@style/textBlock"
+                app:layout_constraintTop_toBottomOf="@id/apodCopyright"
+                app:layout_constraintBottom_toTopOf="@id/apodExplanation"/>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/apodExplanation"
-                style="@style/textBlock"/>
+                style="@style/textBlock"
+                app:layout_constraintTop_toBottomOf="@id/apodDate"
+                app:layout_constraintBottom_toTopOf="@id/searchLayout"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/searchLayout"
@@ -85,14 +94,14 @@
                 app:endIconMode="custom"
                 app:endIconDrawable="@drawable/ic_merriam_webster"
                 app:endIconCheckable="true"
-                app:layout_constraintTop_toBottomOf="@id/picture_title">
+                app:layout_constraintTop_toBottomOf="@id/apodExplanation">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/searchText"
                     style="@style/text_input"
                     android:hint="@string/input_text"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-        </LinearLayout>
+        </androidx.constraintlayout.motion.widget.MotionLayout>
 
     </androidx.core.widget.NestedScrollView>
 
