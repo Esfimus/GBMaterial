@@ -18,7 +18,7 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/bottom_sheet_title"
-        style="@style/title"
+        style="@style/titleBlock"
         android:text="@string/explanation"/>
 
     <androidx.core.widget.NestedScrollView
@@ -28,7 +28,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/bottom_sheet_text"
-            style="@style/text" />
+            style="@style/textBlock" />
 
     </androidx.core.widget.NestedScrollView>
 
