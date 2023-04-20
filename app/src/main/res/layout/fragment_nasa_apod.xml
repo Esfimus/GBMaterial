@@ -5,66 +5,105 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.NasaApodFragment">
+    android:fitsSystemWindows="false"
+    tools:context=".ui.NasaApodOldFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/apodAppBar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
 
-        <ProgressBar
-            android:id="@+id/loading_progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="visible"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/image_view"
-            app:layout_constraintBottom_toBottomOf="@id/image_view"
-            android:indeterminate="true"
-            android:indeterminateDrawable="@drawable/custom_progress_bar"/>
-
-        <ImageView
-            android:id="@+id/image_view"
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/apodToolbarLayout"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintHeight_percent=".5"
-            android:contentDescription="@string/nasa"/>
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:toolbarId="@+id/toolbar">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/picture_title"
-            style="@style/title"
-            android:layout_margin="@dimen/normal_margin"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/image_view"/>
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/apodToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="none"/>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout"
+            <ProgressBar
+                android:id="@+id/loading_progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="visible"
+                android:indeterminate="true"
+                android:indeterminateDrawable="@drawable/custom_progress_bar"
+                app:layout_collapseMode="parallax"/>
+
+            <ImageView
+                android:id="@+id/apodImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:fitsSystemWindows="false"
+                app:layout_collapseMode="parallax"
+                android:contentDescription="@string/app_name"/>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/normal_margin"
-            app:endIconMode="custom"
-            app:endIconDrawable="@drawable/ic_merriam_webster"
-            app:endIconCheckable="true"
-            app:layout_constraintTop_toBottomOf="@id/picture_title">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/text_input"
-                style="@style/text_input"
-                android:hint="@string/input_text"/>
-        </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/change_date_fab"
-            style="@style/text"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="@dimen/normal_margin"
-            android:layout_marginBottom="40dp"
-            android:text="@string/change_date"/>
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/apodTitle"
+                style="@style/titleBlock"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/apodCopyright"
+                style="@style/textBlock"/>
 
-    <include layout="@layout/bottom_sheet"/>
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/apodDate"
+                style="@style/textBlock"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/apodExplanation"
+                style="@style/textBlock"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/searchLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/normal_margin"
+                app:endIconMode="custom"
+                app:endIconDrawable="@drawable/ic_merriam_webster"
+                app:endIconCheckable="true"
+                app:layout_constraintTop_toBottomOf="@id/picture_title">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/searchText"
+                    style="@style/text_input"
+                    android:hint="@string/input_text"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/changeDateFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/normal_margin"
+        app:layout_anchor="@id/apodAppBar"
+        app:layout_anchorGravity="bottom|end"
+        app:srcCompat="@drawable/baseline_calendar_month_24"
+        android:contentDescription="@string/change_date"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

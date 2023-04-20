@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">GBMaterial</string>
-    <string name="nasa">NASA</string>
+    <string name="app_name">NASA</string>
     <string name="change_date">Change Date</string>
     <string name="explanation">Explanation</string>
     <string name="input_text">Input text</string>

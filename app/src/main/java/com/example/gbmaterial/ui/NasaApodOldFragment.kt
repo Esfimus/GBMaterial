@@ -7,37 +7,42 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.ImageLoader
 import coil.request.ImageRequest
 import com.example.gbmaterial.R
-import com.example.gbmaterial.databinding.FragmentNasaApodBinding
+import com.example.gbmaterial.databinding.FragmentNasaApodOldBinding
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
-class NasaApodFragment : Fragment() {
+class NasaApodOldFragment : Fragment() {
 
-    private var _ui: FragmentNasaApodBinding? = null
+    private var _ui: FragmentNasaApodOldBinding? = null
     private val ui get() = _ui!!
     private val model: SharedViewModel by lazy {
         ViewModelProvider(requireActivity())[SharedViewModel::class.java] }
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
 
     companion object {
-        fun newInstance() = NasaApodFragment()
+        fun newInstance() = NasaApodOldFragment()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View {
-        _ui = FragmentNasaApodBinding.inflate(inflater, container, false)
+        _ui = FragmentNasaApodOldBinding.inflate(inflater, container, false)
         return ui.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setBottomSheetBehavior(view.findViewById(R.id.bottom_sheet_container))
         initView()
         searchDefinition()
     }
@@ -45,12 +50,11 @@ class NasaApodFragment : Fragment() {
     private fun initView() {
         model.loadNasaApod(model.currentDate())
         model.apodLive.observe(viewLifecycleOwner) {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            view?.findViewById<TextView>(R.id.bottom_sheet_text)?.text = it.explanation
             with (ui) {
-                apodTitle.text = it.title
-                apodCopyright.text = it.copyright
-                apodDate.text = it.date
-                apodExplanation.text = it.explanation
-                apodImage.loadPicture(it.url)
+                imageView.loadPicture(it.url)
+                pictureTitle.text = it.title
             }
         }
         model.responseCodeLive.observe(viewLifecycleOwner) {
@@ -70,11 +74,16 @@ class NasaApodFragment : Fragment() {
         imageLoader.enqueue(request)
     }
 
+    private fun setBottomSheetBehavior(bottomSheet: LinearLayout) {
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+    }
+
     private fun searchDefinition() {
-        ui.searchLayout.setEndIconOnClickListener {
-            if (!"""\s*""".toRegex().matches(ui.searchText.text.toString())) {
+        ui.inputLayout.setEndIconOnClickListener {
+            if (!"""\s*""".toRegex().matches(ui.textInput.text.toString())) {
                 startActivity(Intent(Intent.ACTION_VIEW).apply {
-                    val filteredInput = model.filterInputText(ui.searchText.text.toString())
+                    val filteredInput = model.filterInputText(ui.textInput.text.toString())
                     data = Uri.parse("https://www.merriam-webster.com/dictionary/$filteredInput")
                 })
             }
