@@ -1,7 +1,5 @@
 package com.example.gbmaterial.ui
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -39,7 +37,6 @@ class NasaApodFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
-        searchDefinition()
     }
 
     private fun initView() {
@@ -68,17 +65,6 @@ class NasaApodFragment : Fragment() {
             .target(this)
             .build()
         imageLoader.enqueue(request)
-    }
-
-    private fun searchDefinition() {
-        ui.searchLayout.setEndIconOnClickListener {
-            if (!"""\s*""".toRegex().matches(ui.searchText.text.toString())) {
-                startActivity(Intent(Intent.ACTION_VIEW).apply {
-                    val filteredInput = model.filterInputText(ui.searchText.text.toString())
-                    data = Uri.parse("https://www.merriam-webster.com/dictionary/$filteredInput")
-                })
-            }
-        }
     }
 
     private fun View.snackMessage(text: String, length: Int = Snackbar.LENGTH_SHORT) {

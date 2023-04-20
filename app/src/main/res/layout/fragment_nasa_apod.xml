@@ -56,52 +56,38 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <androidx.constraintlayout.motion.widget.MotionLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            app:layoutDescription="@xml/fragment_nasa_apod_scene">
+            android:layout_height="match_parent">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/apodTitle"
                 style="@style/titleBlock"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/apodCopyright"/>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/apodCopyright"
                 style="@style/textBlock"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/apodTitle"
                 app:layout_constraintBottom_toTopOf="@id/apodDate"/>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/apodDate"
                 style="@style/textBlock"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/apodCopyright"
                 app:layout_constraintBottom_toTopOf="@id/apodExplanation"/>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/apodExplanation"
                 style="@style/textBlock"
-                app:layout_constraintTop_toBottomOf="@id/apodDate"
-                app:layout_constraintBottom_toTopOf="@id/searchLayout"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/apodDate"/>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/searchLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/normal_margin"
-                app:endIconMode="custom"
-                app:endIconDrawable="@drawable/ic_merriam_webster"
-                app:endIconCheckable="true"
-                app:layout_constraintTop_toBottomOf="@id/apodExplanation">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/searchText"
-                    style="@style/text_input"
-                    android:hint="@string/input_text"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-        </androidx.constraintlayout.motion.widget.MotionLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
 
