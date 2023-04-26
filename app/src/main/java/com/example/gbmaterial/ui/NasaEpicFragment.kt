@@ -1,5 +1,6 @@
 package com.example.gbmaterial.ui
 
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -19,6 +20,7 @@ class NasaEpicFragment : Fragment() {
     private val ui get() = _ui!!
     private val model: SharedViewModel by lazy {
         ViewModelProvider(requireActivity())[SharedViewModel::class.java] }
+    private var isExpanded = false
 
     companion object { fun newInstance() = NasaEpicFragment() }
 
@@ -32,6 +34,26 @@ class NasaEpicFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initView()
         searchDefinition()
+        animateImage()
+    }
+
+    private fun animateImage() {
+        ui.imageView.setOnClickListener {
+            isExpanded = !isExpanded
+            if (isExpanded) {
+                ObjectAnimator.ofFloat(ui.imageView, View.SCALE_X, 2f).setDuration(1000L).start()
+                ObjectAnimator.ofFloat(ui.imageView, View.SCALE_Y, 2f).setDuration(1000L).start()
+                ObjectAnimator.ofFloat(ui.imageView, View.TRANSLATION_Y, 400f).setDuration(1000L).start()
+                ObjectAnimator.ofFloat(ui.coordinatesView, View.ALPHA, 0f).setDuration(1000L).start()
+                ObjectAnimator.ofFloat(ui.dateView, View.ALPHA, 0f).setDuration(1000L).start()
+            } else {
+                ObjectAnimator.ofFloat(ui.imageView, View.SCALE_X, 1f).setDuration(1000L).start()
+                ObjectAnimator.ofFloat(ui.imageView, View.SCALE_Y, 1f).setDuration(1000L).start()
+                ObjectAnimator.ofFloat(ui.imageView, View.TRANSLATION_Y, 0f).setDuration(1000L).start()
+                ObjectAnimator.ofFloat(ui.coordinatesView, View.ALPHA, 1f).setDuration(1000L).start()
+                ObjectAnimator.ofFloat(ui.dateView, View.ALPHA, 1f).setDuration(1000L).start()
+            }
+        }
     }
 
     private fun initView() {
