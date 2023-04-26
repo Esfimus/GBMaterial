@@ -5,19 +5,19 @@ import com.google.gson.annotations.SerializedName
 
 data class Apod(
     @SerializedName("copyright")
-    val copyright: String,
+    val copyright: String?,
     @SerializedName("date")
-    val date: String,
+    val date: String?,
     @SerializedName("explanation")
-    val explanation: String,
+    val explanation: String?,
     @SerializedName("hdurl")
-    val hdurl: String,
+    val hdurl: String?,
     @SerializedName("media_type")
-    val mediaType: String,
+    val mediaType: String?,
     @SerializedName("service_version")
-    val serviceVersion: String,
+    val serviceVersion: String?,
     @SerializedName("title")
-    val title: String,
+    val title: String?,
     @SerializedName("url")
     val url: String
 )

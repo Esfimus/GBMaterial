@@ -43,10 +43,30 @@ class NasaApodFragment : Fragment() {
         model.loadNasaApod(model.currentDate())
         model.apodLive.observe(viewLifecycleOwner) {
             with (ui) {
-                apodTitle.text = it.title
-                apodCopyright.text = it.copyright
-                apodDate.text = it.date
-                apodExplanation.text = it.explanation
+                if (it.title.isNullOrEmpty()) {
+                    apodTitle.visibility = View.GONE
+                } else {
+                    apodTitle.visibility = View.VISIBLE
+                    apodTitle.text = it.title
+                }
+                if (it.copyright.isNullOrEmpty()) {
+                    apodCopyright.visibility = View.GONE
+                } else {
+                    apodCopyright.visibility = View.VISIBLE
+                    apodCopyright.text = it.copyright
+                }
+                if (it.date.isNullOrEmpty()) {
+                    apodDate.visibility = View.GONE
+                } else {
+                    apodDate.visibility = View.VISIBLE
+                    apodDate.text = it.date
+                }
+                if (it.explanation.isNullOrEmpty()) {
+                    apodExplanation.visibility = View.GONE
+                } else {
+                    apodExplanation.visibility = View.VISIBLE
+                    apodExplanation.text = it.explanation
+                }
                 apodImage.loadPicture(it.url)
             }
         }
