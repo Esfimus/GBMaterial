@@ -1,6 +1,7 @@
 package com.example.gbmaterial.ui
 
-import android.animation.ObjectAnimator
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -21,6 +22,7 @@ class NasaEpicFragment : Fragment() {
     private val model: SharedViewModel by lazy {
         ViewModelProvider(requireActivity())[SharedViewModel::class.java] }
     private var isExpanded = false
+    private val second = 1000L
 
     companion object { fun newInstance() = NasaEpicFragment() }
 
@@ -38,20 +40,44 @@ class NasaEpicFragment : Fragment() {
     }
 
     private fun animateImage() {
-        ui.imageView.setOnClickListener {
-            isExpanded = !isExpanded
-            if (isExpanded) {
-                ObjectAnimator.ofFloat(ui.imageView, View.SCALE_X, 2f).setDuration(1000L).start()
-                ObjectAnimator.ofFloat(ui.imageView, View.SCALE_Y, 2f).setDuration(1000L).start()
-                ObjectAnimator.ofFloat(ui.imageView, View.TRANSLATION_Y, 400f).setDuration(1000L).start()
-                ObjectAnimator.ofFloat(ui.coordinatesView, View.ALPHA, 0f).setDuration(1000L).start()
-                ObjectAnimator.ofFloat(ui.dateView, View.ALPHA, 0f).setDuration(1000L).start()
-            } else {
-                ObjectAnimator.ofFloat(ui.imageView, View.SCALE_X, 1f).setDuration(1000L).start()
-                ObjectAnimator.ofFloat(ui.imageView, View.SCALE_Y, 1f).setDuration(1000L).start()
-                ObjectAnimator.ofFloat(ui.imageView, View.TRANSLATION_Y, 0f).setDuration(1000L).start()
-                ObjectAnimator.ofFloat(ui.coordinatesView, View.ALPHA, 1f).setDuration(1000L).start()
-                ObjectAnimator.ofFloat(ui.dateView, View.ALPHA, 1f).setDuration(1000L).start()
+        with (ui) {
+            imageView.setOnClickListener {
+                isExpanded = !isExpanded
+                if (isExpanded) {
+                    imageView.animate()
+                        .scaleX(2f)
+                        .scaleY(2f)
+                        .translationY(400f)
+                        .setDuration(second)
+                        .setListener(object : AnimatorListenerAdapter() {
+                            override fun onAnimationEnd(animation: Animator) {
+                                dictionaryButton.isClickable = false
+                            }
+                        })
+                    coordinatesView.animate()
+                        .alpha(0f)
+                        .duration
+                    dateView.animate()
+                        .alpha(0f)
+                        .duration
+                } else {
+                    imageView.animate()
+                        .scaleX(1f)
+                        .scaleY(1f)
+                        .translationY(0f)
+                        .setDuration(second)
+                        .setListener(object : AnimatorListenerAdapter() {
+                            override fun onAnimationEnd(animation: Animator) {
+                                dictionaryButton.isClickable = true
+                            }
+                        })
+                    coordinatesView.animate()
+                        .alpha(1f)
+                        .duration
+                    dateView.animate()
+                        .alpha(1f)
+                        .duration
+                }
             }
         }
     }
