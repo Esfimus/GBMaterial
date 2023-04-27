@@ -30,6 +30,14 @@
 
     <style name="CustomBottomSheet" parent="Widget.Material3.BottomSheet" />
 
+    <style name="animationLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:background">@color/md_theme_light_background</item>
+    </style>
+
     <style name="bottom_sheet_line">
         <item name="android:layout_width">@dimen/peek_size</item>
         <item name="android:layout_height">@dimen/line_thickness</item>

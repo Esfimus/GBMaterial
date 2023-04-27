@@ -64,4 +64,26 @@
             android:hint="@string/input_text"/>
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/animationFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/normal_margin"
+        app:layout_constraintTop_toBottomOf="@id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:elevation="@dimen/small_margin"
+        android:contentDescription="@string/animation"/>
+
+    <ImageView
+        android:id="@+id/fabSeparateImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/animationFab"
+        app:layout_constraintBottom_toBottomOf="@id/animationFab"
+        app:layout_constraintStart_toStartOf="@id/animationFab"
+        app:layout_constraintEnd_toEndOf="@id/animationFab"
+        android:src="@drawable/baseline_incomplete_circle_24"
+        android:elevation="@dimen/normal_margin"
+        android:contentDescription="@string/animation"/>
+
 </androidx.constraintlayout.motion.widget.MotionLayout>

@@ -10,9 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import coil.ImageLoader
 import coil.request.ImageRequest
+import com.example.gbmaterial.R
 import com.example.gbmaterial.databinding.FragmentNasaEpicBinding
 
 class NasaEpicFragment : Fragment() {
@@ -55,11 +57,18 @@ class NasaEpicFragment : Fragment() {
                             }
                         })
                     coordinatesView.animate()
-                        .alpha(0f)
-                        .duration
+                        .translationX(-400f)
+                        .duration = second
                     dateView.animate()
-                        .alpha(0f)
-                        .duration
+                        .translationX(-400f)
+                        .duration = second
+                    animationFab.animate()
+                        .translationX(400f)
+                        .duration = second
+                    fabSeparateImage.animate()
+                        .translationX(400f)
+                        .rotation(720f)
+                        .duration = second
                 } else {
                     imageView.animate()
                         .scaleX(1f)
@@ -72,17 +81,27 @@ class NasaEpicFragment : Fragment() {
                             }
                         })
                     coordinatesView.animate()
-                        .alpha(1f)
-                        .duration
+                        .translationX(0f)
+                        .duration = second
                     dateView.animate()
-                        .alpha(1f)
-                        .duration
+                        .translationX(0f)
+                        .duration = second
+                    animationFab.animate()
+                        .translationX(0f)
+                        .duration = second
+                    fabSeparateImage.animate()
+                        .translationX(0f)
+                        .rotation(0f)
+                        .duration = second
                 }
             }
         }
     }
 
     private fun initView() {
+        ui.animationFab.setOnClickListener {
+            openFragment(AnimationFragment.newInstance())
+        }
         model.loadNasaEpic()
         model.epicLive.observe(viewLifecycleOwner) {
             val date = it[0].date
@@ -125,6 +144,16 @@ class NasaEpicFragment : Fragment() {
             .target(this)
             .build()
         imageLoader.enqueue(request)
+    }
+
+    private fun openFragment(fragment: Fragment) {
+        requireActivity()
+            .supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.main_container, fragment)
+            .addToBackStack(null)
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            .commit()
     }
 
     override fun onDestroyView() {
