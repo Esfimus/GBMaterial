@@ -150,6 +150,7 @@ class NasaEpicFragment : Fragment() {
         requireActivity()
             .supportFragmentManager
             .beginTransaction()
+            .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
             .replace(R.id.main_container, fragment)
             .addToBackStack(null)
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)

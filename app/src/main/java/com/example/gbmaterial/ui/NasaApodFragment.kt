@@ -120,6 +120,7 @@ class NasaApodFragment : Fragment() {
         requireActivity()
             .supportFragmentManager
             .beginTransaction()
+            .setCustomAnimations(R.anim.slide_in, R.anim.fade_out)
             .replace(R.id.main_container, fragment)
             .addToBackStack(null)
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
