@@ -5,4 +5,5 @@
     <string name="input_text">Search definition</string>
     <string name="select_date">Select date</string>
     <string name="animation">Animation</string>
+    <string name="background_image">Background Image</string>
 </resources>

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import coil.ImageLoader
 import coil.request.ImageRequest
@@ -74,6 +75,9 @@ class NasaApodFragment : Fragment() {
             view?.snackMessage(it)
         }
         pictureByDate()
+        ui.apodImage.setOnClickListener {
+            openFragment(AnimationFragment.newInstance())
+        }
     }
 
     private fun ImageView.loadPicture(url: String) {
@@ -110,6 +114,16 @@ class NasaApodFragment : Fragment() {
                 )
             }
         }
+    }
+
+    private fun openFragment(fragment: Fragment) {
+        requireActivity()
+            .supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.main_container, fragment)
+            .addToBackStack(null)
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            .commit()
     }
 
     override fun onDestroyView() {

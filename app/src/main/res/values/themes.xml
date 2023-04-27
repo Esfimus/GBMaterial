@@ -74,4 +74,22 @@
         <item name="android:imeOptions">actionDone</item>
     </style>
 
+    <style name="animationCard">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/normal_margin</item>
+        <item name="cardCornerRadius">4dp</item>
+        <item name="android:backgroundTint">@color/md_theme_light_shadow</item>
+        <item name="android:alpha">.7</item>
+    </style>
+
+    <style name="animationCardText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_margin">@dimen/small_margin</item>
+        <item name="fontFamily">@font/rajdhani_medium</item>
+        <item name="android:textSize">@dimen/normal_text_size</item>
+        <item name="android:textColor">@color/md_theme_light_onPrimary</item>
+    </style>
+
 </resources>
