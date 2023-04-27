@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import coil.ImageLoader
 import coil.request.ImageRequest
@@ -43,10 +44,30 @@ class NasaApodFragment : Fragment() {
         model.loadNasaApod(model.currentDate())
         model.apodLive.observe(viewLifecycleOwner) {
             with (ui) {
-                apodTitle.text = it.title
-                apodCopyright.text = it.copyright
-                apodDate.text = it.date
-                apodExplanation.text = it.explanation
+                if (it.title.isNullOrEmpty()) {
+                    apodTitle.visibility = View.GONE
+                } else {
+                    apodTitle.visibility = View.VISIBLE
+                    apodTitle.text = it.title
+                }
+                if (it.copyright.isNullOrEmpty()) {
+                    apodCopyright.visibility = View.GONE
+                } else {
+                    apodCopyright.visibility = View.VISIBLE
+                    apodCopyright.text = it.copyright
+                }
+                if (it.date.isNullOrEmpty()) {
+                    apodDate.visibility = View.GONE
+                } else {
+                    apodDate.visibility = View.VISIBLE
+                    apodDate.text = it.date
+                }
+                if (it.explanation.isNullOrEmpty()) {
+                    apodExplanation.visibility = View.GONE
+                } else {
+                    apodExplanation.visibility = View.VISIBLE
+                    apodExplanation.text = it.explanation
+                }
                 apodImage.loadPicture(it.url)
             }
         }
@@ -54,6 +75,9 @@ class NasaApodFragment : Fragment() {
             view?.snackMessage(it)
         }
         pictureByDate()
+        ui.apodImage.setOnClickListener {
+            openFragment(AnimationFragment.newInstance())
+        }
     }
 
     private fun ImageView.loadPicture(url: String) {
@@ -90,6 +114,17 @@ class NasaApodFragment : Fragment() {
                 )
             }
         }
+    }
+
+    private fun openFragment(fragment: Fragment) {
+        requireActivity()
+            .supportFragmentManager
+            .beginTransaction()
+            .setCustomAnimations(R.anim.slide_in, R.anim.fade_out)
+            .replace(R.id.main_container, fragment)
+            .addToBackStack(null)
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            .commit()
     }
 
     override fun onDestroyView() {

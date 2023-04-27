@@ -6,10 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.NasaEpicFragment"
-    app:layoutDescription="@xml/motion_scene">
+    app:layoutDescription="@xml/motion_scene"
+    android:id="@+id/epicContainer">
 
     <ProgressBar
-        android:id="@+id/loading_progress_bar"
+        android:id="@+id/loadingProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
@@ -20,7 +21,7 @@
         android:indeterminateDrawable="@drawable/custom_progress_bar"/>
 
     <ImageView
-        android:id="@+id/image_view"
+        android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
@@ -34,7 +35,7 @@
         android:layout_margin="@dimen/normal_margin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/image_view"/>
+        app:layout_constraintTop_toBottomOf="@id/imageView"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/coordinatesView"
@@ -62,5 +63,27 @@
             style="@style/text_input"
             android:hint="@string/input_text"/>
     </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/animationFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/normal_margin"
+        app:layout_constraintTop_toBottomOf="@id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:elevation="@dimen/small_margin"
+        android:contentDescription="@string/animation"/>
+
+    <ImageView
+        android:id="@+id/fabSeparateImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/animationFab"
+        app:layout_constraintBottom_toBottomOf="@id/animationFab"
+        app:layout_constraintStart_toStartOf="@id/animationFab"
+        app:layout_constraintEnd_toEndOf="@id/animationFab"
+        android:src="@drawable/baseline_incomplete_circle_24"
+        android:elevation="@dimen/normal_margin"
+        android:contentDescription="@string/animation"/>
 
 </androidx.constraintlayout.motion.widget.MotionLayout>
