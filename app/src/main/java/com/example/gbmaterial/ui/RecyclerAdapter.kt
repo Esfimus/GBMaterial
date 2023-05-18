@@ -14,6 +14,8 @@ import com.example.gbmaterial.databinding.RecyclerviewItemBinding
 class RecyclerAdapter(private val itemsList: List <Apod>) :
     RecyclerView.Adapter<RecyclerAdapter.CustomViewHolder>() {
 
+    private var itemClickListener: OnListItemClick? = null
+
     inner class CustomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val ui = RecyclerviewItemBinding.bind(itemView)
@@ -46,6 +48,12 @@ class RecyclerAdapter(private val itemsList: List <Apod>) :
                 .build()
             imageLoader.enqueue(request)
         }
+
+        init {
+            ui.recyclerCard.setOnClickListener {
+                itemClickListener?.onClick(adapterPosition)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
@@ -60,4 +68,12 @@ class RecyclerAdapter(private val itemsList: List <Apod>) :
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         holder.bind(itemsList[position])
     }
+
+    fun setClickListener(clickListener: OnListItemClick) {
+        itemClickListener = clickListener
+    }
+}
+
+interface OnListItemClick {
+    fun onClick(position: Int)
 }

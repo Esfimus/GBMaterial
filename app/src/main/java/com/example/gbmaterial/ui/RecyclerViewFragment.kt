@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.gbmaterial.R
 import com.example.gbmaterial.databinding.FragmentRecyclerViewBinding
 
 class RecyclerViewFragment : Fragment() {
@@ -37,7 +39,25 @@ class RecyclerViewFragment : Fragment() {
                 layoutManager = LinearLayoutManager(context)
                 adapter = recyclerAdapter
             }
+
+            recyclerAdapter.setClickListener(object : OnListItemClick {
+                override fun onClick(position: Int) {
+                    model.setApodLive(list[position])
+                    openFragment(AnimationFragment.newInstance())
+                }
+            })
         }
+    }
+
+    private fun openFragment(fragment: Fragment) {
+        requireActivity()
+            .supportFragmentManager
+            .beginTransaction()
+            .setCustomAnimations(R.anim.slide_in, R.anim.fade_out)
+            .replace(R.id.main_container, fragment)
+            .addToBackStack(null)
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            .commit()
     }
 
     override fun onDestroyView() {
