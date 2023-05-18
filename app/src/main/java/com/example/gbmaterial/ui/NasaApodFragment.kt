@@ -42,6 +42,7 @@ class NasaApodFragment : Fragment() {
 
     private fun initView() {
         model.loadNasaApod(model.currentDate())
+
         model.apodLive.observe(viewLifecycleOwner) {
             with (ui) {
                 if (it.title.isNullOrEmpty()) {
@@ -71,12 +72,19 @@ class NasaApodFragment : Fragment() {
                 apodImage.loadPicture(it.url)
             }
         }
+
         model.responseCodeLive.observe(viewLifecycleOwner) {
             view?.snackMessage(it)
         }
+
         pictureByDate()
+
         ui.apodImage.setOnClickListener {
             openFragment(AnimationFragment.newInstance())
+        }
+
+        ui.daysListFab.setOnClickListener {
+            openFragment(RecyclerViewFragment.newInstance())
         }
     }
 
