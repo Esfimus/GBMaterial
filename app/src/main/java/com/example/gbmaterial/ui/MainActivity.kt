@@ -12,7 +12,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var ui: ActivityMainBinding
     private val fragments = listOf(
-        NasaApodFragment.newInstance(),
+//        NasaApodFragment.newInstance(),
+        RecyclerViewFragment.newInstance(),
         NasaEpicFragment.newInstance()
     )
     private val fragmentsNames = listOf("APOD", "EPIC")
