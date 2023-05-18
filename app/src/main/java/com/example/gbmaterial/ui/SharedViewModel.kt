@@ -88,7 +88,8 @@ class SharedViewModel : ViewModel() {
     private fun generateDates(): List<String> {
         val date = LocalDate.now()
         val datesList = mutableListOf<String>()
-        for (i in 1..DAYS) {
+        datesList.add(date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+        for (i in 1 until DAYS) {
             datesList.add(date.minusDays(i.toLong()).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
         }
         return datesList

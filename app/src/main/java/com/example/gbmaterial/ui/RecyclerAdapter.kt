@@ -3,7 +3,10 @@ package com.example.gbmaterial.ui
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import coil.ImageLoader
+import coil.request.ImageRequest
 import com.example.gbmaterial.R
 import com.example.gbmaterial.data.api.apod.Apod
 import com.example.gbmaterial.databinding.RecyclerviewItemBinding
@@ -17,9 +20,31 @@ class RecyclerAdapter(private val itemsList: List <Apod>) :
 
         fun bind(apod: Apod) {
             with (ui) {
-                recyclerTitle.text = apod.title
-                recyclerDate.text = apod.date
+                recyclerTitle.apply {
+                    text = apod.title
+                    visibility = if (apod.title.isNullOrEmpty()) View.GONE else View.VISIBLE
+                }
+                recyclerCopyright.apply {
+                    text = apod.copyright
+                    visibility = if (apod.copyright.isNullOrEmpty()) View.GONE else View.VISIBLE
+                }
+                recyclerDate.apply {
+                    text = apod.date
+                    visibility = if (apod.date.isNullOrEmpty()) View.GONE else View.VISIBLE
+                }
+                recyclerImage.loadPicture(apod.url)
             }
+        }
+
+        private fun ImageView.loadPicture(url: String) {
+            val imageLoader = ImageLoader.Builder(this.context).build()
+            val request = ImageRequest.Builder(this.context)
+                .crossfade(true)
+                .crossfade(500)
+                .data(url)
+                .target(this)
+                .build()
+            imageLoader.enqueue(request)
         }
     }
 
