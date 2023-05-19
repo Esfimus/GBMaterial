@@ -1,4 +1,4 @@
-package com.example.gbmaterial.ui
+package com.example.gbmaterial.ui.recyclerview
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,9 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gbmaterial.R
 import com.example.gbmaterial.databinding.FragmentRecyclerViewBinding
+import com.example.gbmaterial.ui.AnimationFragment
+import com.example.gbmaterial.ui.SharedViewModel
 
 class RecyclerViewFragment : Fragment() {
 
@@ -34,11 +37,13 @@ class RecyclerViewFragment : Fragment() {
     private fun initView() {
         model.loadNasaApodList()
         model.apodLiveList.observe(viewLifecycleOwner) { list ->
-            val recyclerAdapter = RecyclerAdapter(list)
+            val newList = list.toMutableList()
+            val recyclerAdapter = RecyclerAdapter(newList)
             ui.recycler.apply {
                 layoutManager = LinearLayoutManager(context)
                 adapter = recyclerAdapter
             }
+            ItemTouchHelper(ItemTouchHelperCallback(recyclerAdapter)).attachToRecyclerView(ui.recycler)
 
             recyclerAdapter.setClickListener(object : OnListItemClick {
                 override fun onClick(position: Int) {

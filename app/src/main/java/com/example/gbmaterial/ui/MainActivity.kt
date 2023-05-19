@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.example.gbmaterial.R
 import com.example.gbmaterial.databinding.ActivityMainBinding
+import com.example.gbmaterial.ui.recyclerview.RecyclerViewFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 

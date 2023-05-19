@@ -1,4 +1,4 @@
-package com.example.gbmaterial.ui
+package com.example.gbmaterial.ui.recyclerview
 
 import android.view.LayoutInflater
 import android.view.View
@@ -11,8 +11,8 @@ import com.example.gbmaterial.R
 import com.example.gbmaterial.data.api.apod.Apod
 import com.example.gbmaterial.databinding.RecyclerviewItemBinding
 
-class RecyclerAdapter(private val itemsList: List <Apod>) :
-    RecyclerView.Adapter<RecyclerAdapter.CustomViewHolder>() {
+class RecyclerAdapter(private val itemsList: MutableList <Apod>) :
+    RecyclerView.Adapter<RecyclerAdapter.CustomViewHolder>(), ItemTouchHelperAdapter {
 
     private var itemClickListener: OnListItemClick? = null
 
@@ -72,8 +72,26 @@ class RecyclerAdapter(private val itemsList: List <Apod>) :
     fun setClickListener(clickListener: OnListItemClick) {
         itemClickListener = clickListener
     }
+
+    override fun onItemMove(fromPosition: Int, toPosition: Int) {
+        itemsList.removeAt(fromPosition).apply {
+            itemsList.add(if (toPosition > fromPosition) toPosition - 1 else toPosition, this)
+        }
+        notifyItemMoved(fromPosition, toPosition)
+    }
+
+    override fun onItemDismiss(position: Int) {
+        itemsList.removeAt(position)
+        notifyItemRemoved(position)
+    }
 }
 
 interface OnListItemClick {
     fun onClick(position: Int)
+}
+
+interface ItemTouchHelperAdapter {
+    fun onItemMove(fromPosition: Int, toPosition: Int)
+
+    fun onItemDismiss(position: Int)
 }

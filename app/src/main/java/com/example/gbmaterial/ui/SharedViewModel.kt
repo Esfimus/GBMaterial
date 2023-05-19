@@ -15,7 +15,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 private const val TAG = "retrofit_failure"
-private const val DAYS = 30
+private const val DAYS = 5
 
 class SharedViewModel : ViewModel() {
 
@@ -58,6 +58,7 @@ class SharedViewModel : ViewModel() {
 
     fun loadNasaApodList() {
         val apodList = MutableList(DAYS) { emptyApod }
+        _apodLiveList.value = apodList
         val dateList = generateDates()
         for (i in dateList.indices) {
             val callback = object : Callback<Apod> {
@@ -65,7 +66,7 @@ class SharedViewModel : ViewModel() {
                     val apod: Apod? = response.body()
                     val dateIndex = dateList.indexOf(apod?.date)
                     if (apod != null) apodList.replaceApod(dateIndex, apod)
-                    _apodLiveList.value = apodList
+//                    _apodLiveList.value = apodList
                     when (response.code()) {
                         in 300 until 400 -> responseCodeLive.value = "Redirection"
                         in 400 until 500 -> responseCodeLive.value = "Client Error"
