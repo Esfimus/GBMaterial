@@ -26,9 +26,7 @@ class NasaApodFragment : Fragment() {
     private val model: SharedViewModel by lazy {
         ViewModelProvider(requireActivity())[SharedViewModel::class.java] }
 
-    companion object {
-        fun newInstance() = NasaApodFragment()
-    }
+    companion object { fun newInstance() = NasaApodFragment() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View {

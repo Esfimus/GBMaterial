@@ -51,7 +51,7 @@ class RecyclerAdapter(private val itemsList: MutableList <Apod>) :
 
         init {
             ui.recyclerCard.setOnClickListener {
-                itemClickListener?.onClick(adapterPosition)
+                itemClickListener?.onClick(absoluteAdapterPosition)
             }
         }
     }
@@ -80,7 +80,7 @@ class RecyclerAdapter(private val itemsList: MutableList <Apod>) :
         notifyItemMoved(fromPosition, toPosition)
     }
 
-    override fun onItemDismiss(position: Int) {
+    override fun onItemSwipe(position: Int) {
         itemsList.removeAt(position)
         notifyItemRemoved(position)
     }
@@ -93,5 +93,5 @@ interface OnListItemClick {
 interface ItemTouchHelperAdapter {
     fun onItemMove(fromPosition: Int, toPosition: Int)
 
-    fun onItemDismiss(position: Int)
+    fun onItemSwipe(position: Int)
 }

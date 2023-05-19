@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gbmaterial.R
 import com.example.gbmaterial.databinding.FragmentRecyclerViewBinding
@@ -43,7 +42,7 @@ class RecyclerViewFragment : Fragment() {
                 layoutManager = LinearLayoutManager(context)
                 adapter = recyclerAdapter
             }
-            ItemTouchHelper(ItemTouchHelperCallback(recyclerAdapter)).attachToRecyclerView(ui.recycler)
+//            ItemTouchHelper(ItemTouchHelperCallback(recyclerAdapter)).attachToRecyclerView(ui.recycler)
 
             recyclerAdapter.setClickListener(object : OnListItemClick {
                 override fun onClick(position: Int) {

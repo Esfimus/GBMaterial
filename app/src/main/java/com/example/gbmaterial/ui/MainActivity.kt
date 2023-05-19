@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.example.gbmaterial.R
 import com.example.gbmaterial.databinding.ActivityMainBinding
-import com.example.gbmaterial.ui.recyclerview.RecyclerViewFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -13,8 +12,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var ui: ActivityMainBinding
     private val fragments = listOf(
-//        NasaApodFragment.newInstance(),
-        RecyclerViewFragment.newInstance(),
+        NasaApodFragment.newInstance(),
         NasaEpicFragment.newInstance()
     )
     private val fragmentsNames = listOf("APOD", "EPIC")
