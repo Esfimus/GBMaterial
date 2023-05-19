@@ -6,4 +6,5 @@
     <string name="select_date">Select date</string>
     <string name="animation">Animation</string>
     <string name="background_image">Background Image</string>
+    <string name="list_of_dates">List of dates</string>
 </resources>

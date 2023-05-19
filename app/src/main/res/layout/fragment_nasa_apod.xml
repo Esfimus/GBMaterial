@@ -95,10 +95,20 @@
         android:id="@+id/changeDateFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/normal_margin"
+        android:layout_margin="@dimen/normal_margin"
         app:layout_anchor="@id/apodAppBar"
-        app:layout_anchorGravity="bottom|end"
+        app:layout_anchorGravity="top|end"
         app:srcCompat="@drawable/baseline_calendar_month_24"
         android:contentDescription="@string/change_date"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/daysListFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/normal_margin"
+        app:layout_anchor="@id/apodAppBar"
+        app:layout_anchorGravity="top|start"
+        app:srcCompat="@drawable/baseline_view_list_24"
+        android:contentDescription="@string/list_of_dates"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

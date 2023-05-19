@@ -12,6 +12,7 @@ import coil.ImageLoader
 import coil.request.ImageRequest
 import com.example.gbmaterial.R
 import com.example.gbmaterial.databinding.FragmentNasaApodBinding
+import com.example.gbmaterial.ui.recyclerview.RecyclerViewFragment
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
 import java.time.Instant
@@ -25,9 +26,7 @@ class NasaApodFragment : Fragment() {
     private val model: SharedViewModel by lazy {
         ViewModelProvider(requireActivity())[SharedViewModel::class.java] }
 
-    companion object {
-        fun newInstance() = NasaApodFragment()
-    }
+    companion object { fun newInstance() = NasaApodFragment() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View {
@@ -42,6 +41,7 @@ class NasaApodFragment : Fragment() {
 
     private fun initView() {
         model.loadNasaApod(model.currentDate())
+
         model.apodLive.observe(viewLifecycleOwner) {
             with (ui) {
                 if (it.title.isNullOrEmpty()) {
@@ -71,12 +71,19 @@ class NasaApodFragment : Fragment() {
                 apodImage.loadPicture(it.url)
             }
         }
+
         model.responseCodeLive.observe(viewLifecycleOwner) {
             view?.snackMessage(it)
         }
+
         pictureByDate()
+
         ui.apodImage.setOnClickListener {
             openFragment(AnimationFragment.newInstance())
+        }
+
+        ui.daysListFab.setOnClickListener {
+            openFragment(RecyclerViewFragment.newInstance())
         }
     }
 
