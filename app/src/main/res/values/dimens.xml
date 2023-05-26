@@ -10,4 +10,5 @@
     <dimen name="min_height">48dp</dimen>
     <dimen name="tabs_height">40dp</dimen>
     <dimen name="normal_text_size">16sp</dimen>
+    <dimen name="huge_text_size">28sp</dimen>
 </resources>

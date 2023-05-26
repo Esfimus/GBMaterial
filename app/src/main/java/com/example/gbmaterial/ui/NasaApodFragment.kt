@@ -1,10 +1,9 @@
 package com.example.gbmaterial.ui
 
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
+import android.text.style.TextAppearanceSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -93,13 +92,22 @@ class NasaApodFragment : Fragment() {
     }
 
     private fun applyMultiStyleText(text: String, textView: TextView) {
-        val spannable = SpannableString(text)
-        spannable.setSpan(
-            ForegroundColorSpan(Color.RED),
-            0, 10,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-        textView.text = spannable
+        try {
+            val spannable = SpannableString(text)
+            spannable.setSpan(
+                TextAppearanceSpan(requireContext(), R.style.modifiedTextStyle),
+                0, firstWhitespaceIndex(text),
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+            textView.text = spannable
+        } catch (_: Exception) { }
+    }
+
+    private fun firstWhitespaceIndex(text: String): Int {
+        for (i in text.indices) {
+            if (text[i] == ' ') return i
+        }
+        return text.length - 1
     }
 
     private fun ImageView.loadPicture(url: String) {
