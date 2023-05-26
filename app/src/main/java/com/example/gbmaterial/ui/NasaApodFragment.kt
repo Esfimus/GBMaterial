@@ -1,10 +1,14 @@
 package com.example.gbmaterial.ui
 
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.TextAppearanceSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
@@ -66,7 +70,7 @@ class NasaApodFragment : Fragment() {
                     apodExplanation.visibility = View.GONE
                 } else {
                     apodExplanation.visibility = View.VISIBLE
-                    apodExplanation.text = it.explanation
+                    applyMultiStyleText(it.explanation, apodExplanation)
                 }
                 apodImage.loadPicture(it.url)
             }
@@ -85,6 +89,25 @@ class NasaApodFragment : Fragment() {
         ui.daysListFab.setOnClickListener {
             openFragment(RecyclerViewFragment.newInstance())
         }
+    }
+
+    private fun applyMultiStyleText(text: String, textView: TextView) {
+        try {
+            val spannable = SpannableString(text)
+            spannable.setSpan(
+                TextAppearanceSpan(requireContext(), R.style.modifiedTextStyle),
+                0, firstWhitespaceIndex(text),
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+            textView.text = spannable
+        } catch (_: Exception) { }
+    }
+
+    private fun firstWhitespaceIndex(text: String): Int {
+        for (i in text.indices) {
+            if (text[i] == ' ') return i
+        }
+        return text.length - 1
     }
 
     private fun ImageView.loadPicture(url: String) {

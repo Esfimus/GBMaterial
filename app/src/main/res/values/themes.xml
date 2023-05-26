@@ -52,6 +52,7 @@
         <item name="android:textStyle">bold</item>
         <item name="fontFamily">@font/rajdhani_medium</item>
         <item name="android:textSize">@dimen/normal_text_size</item>
+        <item name="android:textIsSelectable">true</item>
     </style>
 
     <style name="textBlock">
@@ -63,6 +64,12 @@
         <item name="android:layout_marginBottom">@dimen/small_margin</item>
         <item name="fontFamily">@font/rajdhani_medium</item>
         <item name="android:textSize">@dimen/normal_text_size</item>
+        <item name="android:textIsSelectable">true</item>
+    </style>
+
+    <style name="modifiedTextStyle">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/huge_text_size</item>
     </style>
 
     <style name="text_input">
