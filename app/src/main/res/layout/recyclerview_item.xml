@@ -29,7 +29,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:ellipsize="end"
             android:lines="1"
-            android:textStyle="bold"/>
+            app:fontFamily="@font/audiowide"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/recyclerCopyright"
@@ -41,7 +41,8 @@
             app:layout_constraintStart_toEndOf="@id/recyclerImage"
             app:layout_constraintEnd_toEndOf="parent"
             android:ellipsize="end"
-            android:lines="1"/>
+            android:lines="1"
+            android:fontFamily="@font/alex_brush"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/recyclerDate"

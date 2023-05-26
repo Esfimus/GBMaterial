@@ -70,6 +70,7 @@
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/apodCopyright"
                 style="@style/textBlock"
+                app:fontFamily="@font/alex_brush"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/apodTitle"
                 app:layout_constraintBottom_toTopOf="@id/apodDate"/>
