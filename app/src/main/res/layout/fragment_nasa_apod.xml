@@ -79,6 +79,7 @@
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/apodDate"
                 style="@style/textBlock"
+                android:alpha=".7"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/apodCopyright"
                 app:layout_constraintBottom_toTopOf="@id/apodExplanation"/>

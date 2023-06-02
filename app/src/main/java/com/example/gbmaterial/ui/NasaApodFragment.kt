@@ -91,23 +91,29 @@ class NasaApodFragment : Fragment() {
         }
     }
 
+    /**
+     * Applies text transformation for the first word in given text for TextView
+     */
     private fun applyMultiStyleText(text: String, textView: TextView) {
         try {
             val spannable = SpannableString(text)
             spannable.setSpan(
                 TextAppearanceSpan(requireContext(), R.style.modifiedTextStyle),
-                0, firstWhitespaceIndex(text),
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                0, lastLetterInFirstWord(text),
+                Spannable.SPAN_INCLUSIVE_INCLUSIVE
             )
             textView.text = spannable
         } catch (_: Exception) { }
     }
 
-    private fun firstWhitespaceIndex(text: String): Int {
+    /**
+     * Returns the index of last letter for the first word in given text
+     */
+    private fun lastLetterInFirstWord(text: String): Int {
         for (i in text.indices) {
-            if (text[i] == ' ') return i
+            if ("""[\s.,/!?]""".toRegex().matches(text[i].toString())) return i
         }
-        return text.length - 1
+        return 0
     }
 
     private fun ImageView.loadPicture(url: String) {
