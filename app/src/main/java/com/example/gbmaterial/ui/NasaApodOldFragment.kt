@@ -3,13 +3,10 @@ package com.example.gbmaterial.ui
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.ImageLoader
 import coil.request.ImageRequest
@@ -22,23 +19,13 @@ import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
-class NasaApodOldFragment : Fragment() {
+class NasaApodOldFragment : ViewBindingFragment<FragmentNasaApodOldBinding>(FragmentNasaApodOldBinding::inflate) {
 
-    private var _ui: FragmentNasaApodOldBinding? = null
-    private val ui get() = _ui!!
     private val model: SharedViewModel by lazy {
         ViewModelProvider(requireActivity())[SharedViewModel::class.java] }
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
 
-    companion object {
-        fun newInstance() = NasaApodOldFragment()
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View {
-        _ui = FragmentNasaApodOldBinding.inflate(inflater, container, false)
-        return ui.root
-    }
+    companion object { fun newInstance() = NasaApodOldFragment() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -114,10 +101,4 @@ class NasaApodOldFragment : Fragment() {
             }
         }
     }
-
-    override fun onDestroyView() {
-        _ui = null
-        super.onDestroyView()
-    }
-
 }

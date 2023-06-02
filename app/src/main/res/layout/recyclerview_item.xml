@@ -55,7 +55,8 @@
             app:layout_constraintStart_toEndOf="@id/recyclerImage"
             app:layout_constraintEnd_toEndOf="parent"
             android:ellipsize="end"
-            android:lines="1"/>
+            android:lines="1"
+            android:alpha=".7"/>
 
         <ProgressBar
             android:id="@+id/loadingProgressBar"

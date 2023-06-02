@@ -7,4 +7,5 @@
     <string name="animation">Animation</string>
     <string name="background_image">Background Image</string>
     <string name="list_of_dates">List of dates</string>
+    <string name="days_list">Days list</string>
 </resources>

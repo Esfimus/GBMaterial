@@ -52,6 +52,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -78,6 +79,7 @@
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/apodDate"
                 style="@style/textBlock"
+                android:alpha=".7"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/apodCopyright"
                 app:layout_constraintBottom_toTopOf="@id/apodExplanation"/>
@@ -97,20 +99,24 @@
         android:id="@+id/changeDateFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/normal_margin"
-        app:layout_anchor="@id/apodAppBar"
-        app:layout_anchorGravity="top|end"
+        android:layout_margin="@dimen/large_margin"
+        app:layout_anchor="@id/scrollView"
+        app:layout_anchorGravity="bottom|end"
         app:srcCompat="@drawable/baseline_calendar_month_24"
         android:contentDescription="@string/change_date"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/daysListFab"
+        style="@style/Widget.Material3.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/normal_margin"
-        app:layout_anchor="@id/apodAppBar"
-        app:layout_anchorGravity="top|start"
-        app:srcCompat="@drawable/baseline_view_list_24"
+        android:layout_margin="@dimen/large_margin"
+        app:layout_anchor="@id/scrollView"
+        app:layout_anchorGravity="bottom|start"
+        app:icon="@drawable/baseline_view_list_24"
+        android:text="@string/days_list"
+        android:backgroundTint="?android:colorBackground"
+        android:elevation="@dimen/normal_margin"
         android:contentDescription="@string/list_of_dates"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

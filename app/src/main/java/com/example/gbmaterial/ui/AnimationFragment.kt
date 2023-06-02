@@ -3,35 +3,24 @@ package com.example.gbmaterial.ui
 import android.os.Bundle
 import android.transition.ChangeBounds
 import android.transition.TransitionManager
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.animation.AnticipateOvershootInterpolator
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintSet
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.ImageLoader
 import coil.request.ImageRequest
 import com.example.gbmaterial.R
 import com.example.gbmaterial.databinding.FragmentAnimationBinding
 
-class AnimationFragment : Fragment() {
+class AnimationFragment : ViewBindingFragment<FragmentAnimationBinding>(FragmentAnimationBinding::inflate) {
 
-    private var _ui: FragmentAnimationBinding? = null
-    private val ui get() = _ui!!
     private val model: SharedViewModel by lazy {
         ViewModelProvider(requireActivity())[SharedViewModel::class.java] }
     private var isClicked = false
     private val second = 1000L
 
     companion object { fun newInstance() = AnimationFragment() }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View {
-        _ui = FragmentAnimationBinding.inflate(inflater, container, false)
-        return ui.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -77,10 +66,5 @@ class AnimationFragment : Fragment() {
             .target(this)
             .build()
         imageLoader.enqueue(request)
-    }
-
-    override fun onDestroyView() {
-        _ui = null
-        super.onDestroyView()
     }
 }

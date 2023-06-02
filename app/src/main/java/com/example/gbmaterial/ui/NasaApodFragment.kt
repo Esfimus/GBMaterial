@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.TextAppearanceSpan
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -23,20 +21,12 @@ import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
-class NasaApodFragment : Fragment() {
+class NasaApodFragment : ViewBindingFragment<FragmentNasaApodBinding>(FragmentNasaApodBinding::inflate) {
 
-    private var _ui: FragmentNasaApodBinding? = null
-    private val ui get() = _ui!!
     private val model: SharedViewModel by lazy {
         ViewModelProvider(requireActivity())[SharedViewModel::class.java] }
 
     companion object { fun newInstance() = NasaApodFragment() }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View {
-        _ui = FragmentNasaApodBinding.inflate(inflater, container, false)
-        return ui.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -91,23 +81,29 @@ class NasaApodFragment : Fragment() {
         }
     }
 
+    /**
+     * Applies text transformation for the first word in given text for TextView
+     */
     private fun applyMultiStyleText(text: String, textView: TextView) {
         try {
             val spannable = SpannableString(text)
             spannable.setSpan(
                 TextAppearanceSpan(requireContext(), R.style.modifiedTextStyle),
-                0, firstWhitespaceIndex(text),
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                0, lastLetterInFirstWord(text),
+                Spannable.SPAN_INCLUSIVE_INCLUSIVE
             )
             textView.text = spannable
         } catch (_: Exception) { }
     }
 
-    private fun firstWhitespaceIndex(text: String): Int {
+    /**
+     * Returns the index of last letter for the first word in given text
+     */
+    private fun lastLetterInFirstWord(text: String): Int {
         for (i in text.indices) {
-            if (text[i] == ' ') return i
+            if ("""[\s.,/!?]""".toRegex().matches(text[i].toString())) return i
         }
-        return text.length - 1
+        return 0
     }
 
     private fun ImageView.loadPicture(url: String) {
@@ -156,10 +152,4 @@ class NasaApodFragment : Fragment() {
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             .commit()
     }
-
-    override fun onDestroyView() {
-        _ui = null
-        super.onDestroyView()
-    }
-
 }
