@@ -5,9 +5,7 @@ import android.animation.AnimatorListenerAdapter
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -17,22 +15,14 @@ import coil.request.ImageRequest
 import com.example.gbmaterial.R
 import com.example.gbmaterial.databinding.FragmentNasaEpicBinding
 
-class NasaEpicFragment : Fragment() {
+class NasaEpicFragment : ViewBindingFragment<FragmentNasaEpicBinding>(FragmentNasaEpicBinding::inflate) {
 
-    private var _ui: FragmentNasaEpicBinding? = null
-    private val ui get() = _ui!!
     private val model: SharedViewModel by lazy {
         ViewModelProvider(requireActivity())[SharedViewModel::class.java] }
     private var isExpanded = false
     private val second = 1000L
 
     companion object { fun newInstance() = NasaEpicFragment() }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View {
-        _ui = FragmentNasaEpicBinding.inflate(inflater, container, false)
-        return ui.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -156,10 +146,4 @@ class NasaEpicFragment : Fragment() {
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             .commit()
     }
-
-    override fun onDestroyView() {
-        _ui = null
-        super.onDestroyView()
-    }
-
 }
